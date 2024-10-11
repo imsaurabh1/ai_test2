@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const adminEmail = "saurabh.uni.stuttgart@gmail.com";
+const adminEmail = "planx.universe@gmail.com";
 
 // Function to format the software details into an HTML table
 const formatToolDetailsAsTable = (toolDetails) => {
