@@ -1,0 +1,31 @@
+# Node.js
+node_modules/
+
+
+frontend/coverage/
+
+backend/.env
+
+# Logs
+logs/
+*.log
+
+# Docker-specific ignores
+db_data/               # Ignore local Docker volumes
+docker-compose.override.yml  # If you use this for development-specific configurations
+*.env                  # Ignore environment files if sensitive data is present
+.Dockerfile.swp        # Ignore any temporary files created by editors (like vim swap files)
+
+# IDE/OS specific
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Build directories
+build/
+dist/
+
+# Prevent React build output from being tracked
+frontend/build/
+frontend/node_modules/
+backend/node_modules/

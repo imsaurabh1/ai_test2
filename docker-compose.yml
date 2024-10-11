@@ -1,0 +1,55 @@
+version: '3'
+
+services:
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_USER: root
+      DB_PASSWORD: admin
+      DB_NAME: ai_tools
+      DB_PORT: 3306 
+    depends_on:
+      - db
+    entrypoint: ["sh", "-c", "sleep 5 && npm start"]
+    networks:
+      - my-network  
+
+ 
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: ai_tools
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d/
+    networks:
+      - my-network  
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - my-network
+      
+volumes:
+  db_data:
+
+networks:
+  my-network:
+    driver: bridge
