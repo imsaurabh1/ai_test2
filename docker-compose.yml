@@ -15,7 +15,7 @@ services:
       DB_PORT: 3306 
     depends_on:
       - db
-    entrypoint: ["sh", "-c", "sleep 5 && npm start"]
+    entrypoint: ["./wait-for-it.sh", "npm", "start"]
     networks:
       - my-network  
 
