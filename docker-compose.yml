@@ -15,7 +15,14 @@ services:
       DB_PORT: 3306 
     depends_on:
       - db
-    entrypoint: ["/usr/src/app/wait-for-it.sh", "npm", "start"]
+    command: >
+      sh -c '
+      until nc -z db 3306; do
+        echo "Waiting for MySQL...";
+        sleep 5;
+      done;
+      echo "MySQL is up, starting backend...";
+      npm start'
     networks:
       - my-network  
 
